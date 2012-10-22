@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
+
+	<display-name>TEIID_JPA_Example</display-name>
+
+	<!-- Servlet 1: Expose the OData service endpoint -->
+	<servlet>
+		<servlet-name>OData</servlet-name>
+		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+		<init-param>
+			<param-name>javax.ws.rs.Application</param-name>
+			<param-value>org.odata4j.jersey.producer.resources.ODataApplication</param-value>
+		</init-param>
+		<init-param>
+			<param-name>odata4j.producerfactory</param-name>
+			<param-value>com.synerzip.odata.producer.ODataJPAProducerFactory</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>OData</servlet-name>
+		<url-pattern>/odatajpa.svc/*</url-pattern>
+	</servlet-mapping>
+
+	<!-- Servlet 2: Enable crossdomain access for browser clients -->
+	<servlet>
+		<servlet-name>CrossDomain</servlet-name>
+		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+		<init-param>
+			<param-name>javax.ws.rs.Application</param-name>
+			<param-value>org.odata4j.producer.resources.RootApplication</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CrossDomain</servlet-name>
+		<url-pattern>/*</url-pattern>
+	</servlet-mapping>
+
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+</web-app>

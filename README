@@ -1,0 +1,39 @@
+Pre-requisites
+1. Apache Maven 3.0
+2. Apache Tomcat 7.0.11 or greater
+3. Java 6
+4. MySQL 5.1
+5. mySQL JDBC driver under ${TOMCAT_HOME}/lib
+
+Important points
+1. In case you are using local mySQL5, ensure that you create a new database "odataexample" on the mySQL5 database. The command is
+	create database odataexample;
+	use odataexample;
+2. To create the tables and load the data in mySQL, execute the "configuration/parts_tables.ddl" file SQL statement in the "odataexample" schema on the mySQL5 database.
+3. The command to build the war is "mvn clean install". Please copy the war manually to the tomcat webapps folder.
+5. You can access the running application at (assuming tomcat running at port 8080)
+	1. http://localhost:8080/odata_example/odatajpa.svc/
+6. The client examples can be run as JUnit tests    
+
+URL WHICH SHOWS HOW TO ENABLE SEEING THE NATIVE ATOM FEED XML IN BROWSERS
+
+http://publib.boulder.ibm.com/infocenter/wxsinfo/v7r1/index.jsp?topic=%2Fcom.ibm.websphere.extremescale.over.doc%2Ftxsrestbrows.html
+
+SAMPLE ODATA4J URLs TO TEST ONCE THE APPLICATION IS DEPLOYED SUCCESSFULLY ON JBOSS 7.1.1
+
+IE
+
+	1. http://localhost:8080/odata_example/odatajpa.svc/
+	2. http://localhost:8080/odata_example/odatajpa.svc/$metadata
+	3. http://localhost:8080/odata_example/odatajpa.svc/ShipVia
+	4. http://localhost:8080/odata_example/odatajpa.svc/Supplier('S101')
+	5. http://localhost:8080/odata_example/odatajpa.svc/SupplierParts(2)/part
+	6. http://localhost:8080/odata_example/odatajpa.svc/Supplier?$orderby=supplierName desc
+	7. http://localhost:8080/odata_example/odatajpa.svc/Supplier?$orderby=supplierName desc&$top=4
+	8. http://localhost:8080/odata_example/odatajpa.svc/SupplierParts?$orderby=quantity desc&$top=4
+	9. http://localhost:8080/odata_example/odatajpa.svc/SupplierParts?$orderby=quantity desc&$top=4&$expand=part
+	10. http://localhost:8080/odata_example/odatajpa.svc/Supplier?$filter=startswith(supplierName,'Sea') =>Doesn't work
+
+FireFox
+
+	1. http://localhost:8080/odata_example/odatajpa.svc/SupplierParts?$orderby=quantity desc&$top=4&$expand=part&$format=json
